@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class="title-size"> Pizza Cart</title>
+    <style>
+
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        .cart-item {
+            border: 2px solid rgb(239, 232, 232);
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: white;
+        }
+
+        .cart-item img {
+            max-height: 80px;
+            margin-right: 10px;
+        }
+
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        button{
+            background-color: #f00;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius:70%;
+        }
+
+        .title-style{
+            font-family: Poppins, sans-serif;
+            color: rgb(255,180,17);
+            display: block;
+            font-size: 40px;
+            font-weight: 700;
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 class="title-style"> Your Pizza Cart</h1>
+
+    <div id="cart-items">
+        </div>
+
+    <div class="total">
+        Total: <span id="cart-total">0 /-</span>
+    </div>
+
+    <script>
+        // In a real application, you'd get this data from your server or local storage.
+        const cart = [
+            { name: "Cheese Pizza", price: 400, image: "https://images.pexels.com/photos/803290/pexels-photo-803290.jpeg?cs=srgb&dl=pexels-beqa-tefnadze-803290.jpg&fm=jpg" },
+            { name: "Tropical Pizza", price: 500, image: "https://img.freepik.com/free-photo/pepperoni-pizza-with-sausages-cheese-dark-wooden-table_220768-9277.jpg?size=626&ext=jpg" },
+            { name: "Mecaroni Pizza", price: 550, image: "https://img.freepik.com/free-photo/top-view-pepperoni-pizza-with-mushroom-sausages-bell-pepper-olive-corn-black-wooden_141793-2158.jpg?w=740&t=st=1661842808~exp=1661843408~hmac=c40f0c154036b96b1dba17947c4e4f7c07f40db983106490402bb0b7b6ec452" },
+            { name: "Chocalate Pizza", price: 500, image: "https://images.immediate.co.uk/production/volatile/sites/30/2023/03/Chocolate-pizza-a24aff9.jpg?quality=90&webp=true&resize=600,545" },
+            { name: "Chicken Pizza", price: 600, image: "https://images.squarespace-cdn.com/content/v1/619abd3d53fcd519aac0f6c9/caa9df20-7096-43ff-a70d-4393681d2337/265279418_999152150485893_3378152831508238096_n.jpg?format=1500w" },
+            // Add more pizza items as needed
+        ];
+
+        const cartItemsDiv = document.getElementById("cart-items");
+        const cartTotalSpan = document.getElementById("cart-total");
+
+        let total = 0;
+
+        cart.forEach(item => {
+            const cartItemDiv = document.createElement("div");
+            cartItemDiv.classList.add("cart-item");
+
+            const image = document.createElement("img");
+            image.src = item.image;
+            cartItemDiv.appendChild(image);
+
+            const nameDiv = document.createElement("div");
+            nameDiv.textContent = item.name;
+            cartItemDiv.appendChild(nameDiv);
+
+            const priceDiv = document.createElement("div");
+            priceDiv.textContent = item.price + " /-";
+            cartItemDiv.appendChild(priceDiv);
+
+            const removeButton = document.createElement('button');
+            removeButton.textContent = 'Remove';
+            removeButton.addEventListener('click', function(){
+                cartItemDiv.remove();
+                total -= item.price;
+                cartTotalSpan.textContent = total + " /-";
+            });
+
+            cartItemDiv.appendChild(removeButton);
+
+            cartItemsDiv.appendChild(cartItemDiv);
+            total += item.price;
+        });
+
+        cartTotalSpan.textContent = total + " /-";
+    </script>
+
+</body>
+</html>
